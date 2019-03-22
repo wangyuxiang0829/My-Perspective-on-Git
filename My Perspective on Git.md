@@ -6,6 +6,8 @@
 
 * A series of **snapshots** or **commits**.
 
+
+
 ## Locations of Git
 
 ### working tree
@@ -32,21 +34,28 @@
 
 * Contains the commits of the project.
 
+
+
 ## Create a Local Repository
 
 * `git init` -- initialize (create) an empty repository.
 
+
+
 ## Commit to a Local Repository
 
 * Use `git status` to view the status of files in the working tree and staging area.
-
 * Use `git add` to add content to the staging area.
 * Use the `git commit -m` command to add staged content to the local repository as a commit. You can use the `-m` flag to specify a short commit message.
 * Use `git log --oneline` to view the local repository's commit history. The `--oneline` is optional.
 
+
+
 ## Push to a Remote Repository
 
 ### Remotes - git clone vs. git remote add
+
+**If you want to begin working with the remote repository, you have two main options:**
 
 * If have a local repository, you want to **push** to a remote repository, than you will **add** the remote repository to your local repository.
 * If not have a local repository, you will **clone** the remote repository which will create a local repository that is associated with the remote repository.
@@ -57,7 +66,7 @@
 
 * A reference to the remote repository is included in the local repository. So you can synchronize the repository.
 * **origin** is the default alias for the remote repository URL.
-* `git clone <url/to/projectname.git> [localprojectname]` is used to create a local copy of a remote repository. The last argument is optional. Cloning will create a project directory in your local computer.
+* `git clone <url/to/projectname.git> [localprojectname]` is used to create a local copy of a remote repository. The last argument (which defines the name of the directory name where the local repository is located) is optional. Cloning will create a project directory in your local computer.
 * After cloning, all the commits on the remote repository will also in your local repository.
 * `git remote --verbose` displays information about remote repositories associated with the local repository.
 
@@ -72,10 +81,27 @@
 > A branch can be thought of as an independent line of development of the project.
 
 * By default, there is a single branch and it is called **master**.
-
 * `git push [-u] [<repository>] [<branch>]` writes commits for a branch from the local repository to a remote repository.
 * * `<repository>` can be a name(shortcut which is often origin) or URL
-  * `-u` track this branch (--set-upstream)
-  * The arguments after `git push` are all optional, because git will assume default information or use previous arguments after you have executed the first push.
+  * `-u` flag is set to set up a tracking relationship between the local and remote branch
+  * `[<branch>]` is the branch in the remote repository that you want to push to
+  * The arguments after `git push` are all optional, because git will assume default information or use previous arguments after you have executed the first push
 * A successful push synchronizes the branches on the local and remote repositories so that they they contain exactly the same commits.
 * Before you run `git push` command you can use `git remote --verbose` command to ensure that your local repository has an association with the remote repository.
+
+
+
+## Git's Graph Model
+
+* **Git models the relationship of commits with directed acyclic graph.**
+* **The arrows point at a commit's parent(s).**
+* **The commits and the relationship between them is what forms the project's history.**
+* **A branch occurs if a commit has more than one child.**
+
+![branch](D:\王宇翔\Pictures\Camera Roll\git\Sketch002.jpg)
+
+* **A merge occurs when a commit has more than one parent.**
+
+![merge](D:\王宇翔\Pictures\Camera Roll\git\Sketch001.jpg)
+
+* `git log --graph` will show you a diagram.
