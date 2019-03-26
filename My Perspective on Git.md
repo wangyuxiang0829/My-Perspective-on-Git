@@ -105,3 +105,25 @@
 ![merge](D:\王宇翔\Pictures\Camera Roll\git\Sketch001.jpg)
 
 * `git log --graph` will show you a diagram.
+
+
+
+## Git IDs
+
+### Git Objects
+
+1. Commit object - A small text file
+2. Annotated tag - A reference to a specific commit
+3. Tree - Directories and filenames in the project
+4. Blob - The content of a file in the project
+
+### Git ID
+
+* The name of a Git Object
+* 40 - character hexadecimal string
+* Also known as object ID, SHA-1, hash, and checksum
+
+### Shortening Git IDs
+
+* The first portion of the Git ID
+
