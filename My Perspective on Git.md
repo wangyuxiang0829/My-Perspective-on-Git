@@ -98,11 +98,11 @@
 * **The commits and the relationship between them is what forms the project's history.**
 * **A branch occurs if a commit has more than one child.**
 
-![branch](D:\Documentation\MarkDown\My-Perspective-on-Git\pngs\Sketch002.jpg)
+![branch](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/branch.jpg)
 
 * **A merge occurs when a commit has more than one parent.**
 
-![merge](D:\Documentation\MarkDown\My-Perspective-on-Git\pngs\Sketch001.jpg)
+![merge](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/merge.jpg)
 
 * `git log --graph` will show you a diagram.
 
@@ -140,5 +140,5 @@
 * **master** is the default name of the main branch in the repository
 * A branch label points to the most recent commit in the branch
 
-![label](D:\Documentation\MarkDown\My-Perspective-on-Git\pngs\Sketch003.jpg)
+![label](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/label.jpg)
 
