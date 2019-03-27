@@ -98,11 +98,11 @@
 * **The commits and the relationship between them is what forms the project's history.**
 * **A branch occurs if a commit has more than one child.**
 
-![branch](D:\王宇翔\Pictures\Camera Roll\git\Sketch002.jpg)
+![branch](D:\Documentation\MarkDown\My-Perspective-on-Git\pngs\Sketch002.jpg)
 
 * **A merge occurs when a commit has more than one parent.**
 
-![merge](D:\王宇翔\Pictures\Camera Roll\git\Sketch001.jpg)
+![merge](D:\Documentation\MarkDown\My-Perspective-on-Git\pngs\Sketch001.jpg)
 
 * `git log --graph` will show you a diagram.
 
@@ -126,4 +126,19 @@
 ### Shortening Git IDs
 
 * The first portion of the Git ID
+
+
+
+## References
+
+### Overview of references
+
+* Commits can be associated with references
+
+### Branch labels and HEAD
+
+* **master** is the default name of the main branch in the repository
+* A branch label points to the most recent commit in the branch
+
+![label](D:\Documentation\MarkDown\My-Perspective-on-Git\pngs\Sketch003.jpg)
 
