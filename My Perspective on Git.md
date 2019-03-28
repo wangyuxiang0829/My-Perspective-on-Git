@@ -134,11 +134,55 @@
 ### Overview of references
 
 * Commits can be associated with references
+* A reference is a user-friendly name that points to:
+* * a commit SHA-1 hash
+  * another reference(known as a symbolic reference) (such as HEAD)
+* Use references instead of SHA-1 hashes, `git show` command can show the specified commit message, such as use `git show HEAD` 
+* References are stored in the .git directory
 
 ### Branch labels and HEAD
 
 * **master** is the default name of the main branch in the repository
-* A branch label points to the most recent commit in the branch
+* **A branch label** points to the most recent commit in the branch
 
 ![label](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/label.jpg)
+
+* **Branch labels** are implemented as references
+* The difference between a branch and a branch label:
+* * All commits belong to the branch
+  * The branch label is only at the latest commit of the branch
+* **HEAD** is a reference to the current commit
+* **HEAD** usually points to the branch label of the current branch
+
+![HEAD](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/HEAD.jpg)
+
+* Only one **HEAD** per repository
+
+### Tags
+
+* A **tag** is a reference attached to a specified commit. It acts a user-friendly label for the commit
+
+![tag](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/tag.jap)
+
+* There are two types of Tags:
+* * Lightweight(A simple reference to a commit much like branch label or HEAD)
+  * Annotated(recommended)
+  * * A full Git object that references a commit
+    * Includes tag author information, tag date, tag message, the commit ID
+
+* `git tag` - View all tags in the repository
+
+* Tags can be used instead of branch labels or Git IDs in Git commands such as `git show v1.0`
+
+* To tag a commit with a lightweight tag:
+* * `git tag <tagname> [<commit>]`
+  * `<commit>` defaults to HEAD
+
+* To tag a commit with an annotated tag:
+* * `git tag -a [-m <msg> | -F <file>] <tagname> [<commit>]`
+  * `commit` default to HEAD
+
+* `git push` does not automatically transfer tags to the remote repository
+* To transfer a single tag: `git push <remote> <tagname>`
+* To transfer all of your tags: `git push <remote> --tags`
 
