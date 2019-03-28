@@ -162,7 +162,7 @@
 
 * A **tag** is a reference attached to a specified commit. It acts a user-friendly label for the commit
 
-![tag](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/tag.jap)
+![tag](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/tag.jpg)
 
 * There are two types of Tags:
 * * Lightweight(A simple reference to a commit much like branch label or HEAD)
