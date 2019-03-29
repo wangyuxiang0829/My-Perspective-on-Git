@@ -186,3 +186,48 @@
 * To transfer a single tag: `git push <remote> <tagname>`
 * To transfer all of your tags: `git push <remote> --tags`
 
+
+
+## Branches
+
+### Branch overview
+
+* A **branch** is a set of commits starting with the most recent commit in the branch and tracing back to the project's first commit
+* Fast and easy to create
+* Enable experimentation
+* Enable team development
+* Support multiple project versions
+* **Short-lived** (commonly called topic or feature branches) usually contain one small change to the project
+
+![short-branch](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/short-branch.jpg)
+
+* **Long-lived** such as master, develop, release
+
+* Use `git branch` to see a list of branches in a repository
+
+### Creating a branch
+
+* Use `git branch <name>` to create a branch
+
+* Creating a branch simply creates a new branch label reference but you remain still on the original branch
+
+### Checkout
+
+* Update the HEAD reference
+* Update the working tree with the commit's files
+
+* Use `git checkout <branch_or_commit>` to checkout a branch or commit
+* Use `git checkout -b <branchname>` to combine creating and checking out a branch into a single command
+
+### Detached HEAD
+
+* Checking out a commit rather than a branch leads to a detached HEAD state
+
+![](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/detached-HEAD.jpg)
+
+### Deleting a branch label
+
+* Use `git branch -d <branchname>` to delete a branch
+
+* If you are trying to delete a not fully merged branch, Git will not let you to do that, and if you are sure you want to delete the branch, use the command `git branch -D <branchname>` but that will lead to the dangling commits, and Git will periodically **garbage collect** looking for and deleting older dangling commits, So be careful if you use the D option
+* You can use `git reflog` to return a local list of recent HEAD commits
