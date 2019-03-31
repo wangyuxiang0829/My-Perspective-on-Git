@@ -231,3 +231,59 @@
 
 * If you are trying to delete a not fully merged branch, Git will not let you to do that, and if you are sure you want to delete the branch, use the command `git branch -D <branchname>` but that will lead to the dangling commits, and Git will periodically **garbage collect** looking for and deleting older dangling commits, So be careful if you use the D option
 * You can use `git reflog` to return a local list of recent HEAD commits
+
+
+
+## Merging
+
+### Merging overview
+
+* Merging combines the work of independent branches
+
+![merge-commit](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/merge-commit.jpg)
+
+* Four main types of merges:
+* 1. Fast-forward merge
+  2. Merge commit
+  3. Squash merge*
+  4. Rebase*
+
+* Fast-forward merges: Moves the base branch label the tip of the topic branch.
+
+![fast-forward-merge](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/fast-forward-merge.jpg)
+
+* A fast forward merge is possible only if no other commits have been made to the base branch since the topic branch was created. In this example, a fast-forward merge is not possible:
+
+![impossible-fast-forward-merge](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/impossible-fast-forward-merge.jpg)
+
+```
+the basic steps to performing a fast-forward-merge:
+1. git checkout master
+2. git merge featureX
+	* attempting a fast forward merge is the default
+3. git branch -d featureX
+```
+
+### Merge commits
+
+1.  Combines the commits at the tips of the merged branches
+2. Places the result in the merge commit
+
+```
+the basic steps to performing a merge commit(if the merge is not fast forwardable):
+1. git checkout master
+2. git merge featureX
+	* automatically attempt to create a merge commit if the merge is not fast forwardable
+	* accept or modify the default merge message created by git
+3. git branch -d featureX
+```
+
+```
+the basic steps to performing a merge commit(if the merge is fast forwardable):
+1. git checkout master
+2. git merge --no-ff featureX
+	* [--no-ff] means a no fast-forward merge
+	* accept or modify the merge default message created by git
+3. git branch -d featureX
+```
+
