@@ -287,3 +287,40 @@ the basic steps to performing a merge commit(if the merge is fast forwardable):
 3. git branch -d featureX
 ```
 
+
+
+## Resolving Merge Conflicts
+
+### Merge conflict overview
+
+* There are cases where **multiple branches make different changes to the same part of a file**, and in this case, a merge conflict occurs and a person needs to make a decision on how to resolve it
+* Git can **automatically merge changes to different parts of the same file**
+
+* In Git, a part of file is called a **hunk**, so we can say **the merge conflicts occur when two branches modify the same hunk of the same file**
+
+### Resolving a merge conflict
+
+1. The tip of the current branch (B) - "ours" or "mine"
+2. The tip of the branch to merged (C) - "theirs"
+3. A common ancestor (A) - "merge base"
+
+![resolving-merge-conflict](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/resolving-merge-conflict.jpg)
+
+```
+basic steps to resolve a merge conflict:
+1. git checkout master
+2. git merge featureX
+	(both branches modified the same hunk in file fileA.txt in different ways)
+	At this point, git will modifed fileA.txt which will show you exactly where 	the conflicts are and placed the file in your working tree.
+---
+at this point, if you don't want to continue to merge, you can use the command:
+git merge --abort
+to abort the merge
+---
+3. open fileA.txt and resolved the merge conflict which requires human judgement
+4. git add fileA.txt
+5. git commit
+6. git branch -d featureX
+```
+
+* Conflicted hunks are surrounded by the marks "<<<<<<<"(ours) and ">>>>>>>"(theirs) and "=======" is between them
