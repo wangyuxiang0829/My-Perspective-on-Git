@@ -324,3 +324,51 @@ to abort the merge
 ```
 
 * Conflicted hunks are surrounded by the marks "<<<<<<<"(ours) and ">>>>>>>"(theirs) and "=======" is between them
+
+
+
+## Tracking Branches
+
+### Tracking branch overview
+
+* A tracking branch is a local branch that represents a remote branch
+* A tracking branch name is like `remotename/branchname`
+* **Tracking branches are only updated with network commands like clone, fetch, pull, and push**
+
+### Viewing tracking branch names
+
+* Use `git branch --all` to display all local and tracking branch names
+
+* A reference named `remote/origin/HEAD` is a symbolic reference meaning that it is a reference that points to another reference, and this **specifies the default remote tracking branch**
+
+* You can use `<remote>` name instead of the whole tracking branch name in git command
+
+```
+An example:
+git branch --all
+* master # checked out
+  remotes/origin/HEAD -> origin/master # the default remote tracking branch
+  remotes/origin/master
+git  log origin/master --oneline # see the commits of our master tracking branch
+git log origin --oneline # the same as before because we have default tracking branch
+```
+
+* Change the default remote tracking branch with `git remote set-head <remotename> <branch>`
+
+### Viewing tracking branch status
+
+* `git status` includes tracking branch status
+
+```
+git status
+On branch master
+Your branch is up to date with 'origin/master'. # means that as of the last time that we issued a network command like fetch, we have the latest commit in our local repository
+```
+
+* `git status` will inform you if the cached tracking branch information is out of synchronous with your local  branch
+
+```
+On branch master
+Your branch is ahead of `origin/master` by 1 commit
+```
+
