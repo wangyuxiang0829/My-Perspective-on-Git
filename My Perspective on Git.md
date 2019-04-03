@@ -2,13 +2,39 @@
 
 ## Git Overview
 
-### What is a git repository?
+### What is Git?
+
+* Git is a distributed version control system which means each user has a local copy of the repository and can easily be synchronized.
+
+### What is a Git repository?
 
 * A series of **snapshots** or **commits**.
 
 
 
-## Locations of Git
+## Getting Started
+
+### Configuring user information and the default editor
+
+* Use the `git config [--local | --global | --system] <key> [<value>]` command to specify or read configuration information.
+
+```
+git config --global user.email "yuxiangwang0829@gmail.com" # set
+git config --global user.email # get
+yuxiangwang0829@gmail.com
+```
+
+* Use the `git config --global core.editor [<editorname>]` command to specify or read your preferred Git editor.
+
+```
+git config --global core.editor sublime_text # set
+git config --global core.editor # get
+sublime_text
+```
+
+
+
+## Git Locations
 
 ### working tree
 
