@@ -19,16 +19,16 @@
 * Use the `git config [--local | --global | --system] <key> [<value>]` command to specify or read configuration information.
 
 ```
-git config --global user.email "yuxiangwang0829@gmail.com" # set
-git config --global user.email # get
+$ git config --global user.email "yuxiangwang0829@gmail.com" # set
+$ git config --global user.email # get
 yuxiangwang0829@gmail.com
 ```
 
 * Use the `git config --global core.editor [<editorname>]` command to specify or read your preferred Git editor.
 
 ```
-git config --global core.editor sublime_text # set
-git config --global core.editor # get
+$ git config --global core.editor sublime_text # set
+$ git config --global core.editor # get
 sublime_text
 ```
 
@@ -284,10 +284,10 @@ sublime_text
 
 ```
 the basic steps to performing a fast-forward-merge:
-1. git checkout master
-2. git merge featureX
+$ git checkout master
+$ git merge featureX
 	* attempting a fast forward merge is the default
-3. git branch -d featureX
+$ git branch -d featureX
 ```
 
 ### Merge commits
@@ -297,20 +297,20 @@ the basic steps to performing a fast-forward-merge:
 
 ```
 the basic steps to performing a merge commit(if the merge is not fast forwardable):
-1. git checkout master
-2. git merge featureX
+$ git checkout master
+$ git merge featureX
 	* automatically attempt to create a merge commit if the merge is not fast forwardable
 	* accept or modify the default merge message created by git
-3. git branch -d featureX
+$ git branch -d featureX
 ```
 
 ```
-the basic steps to performing a merge commit(if the merge is fast forwardable):
-1. git checkout master
-2. git merge --no-ff featureX
+# the basic steps to performing a merge commit(if the merge is fast forwardable):
+$ git checkout master
+$ git merge --no-ff featureX
 	* [--no-ff] means a no fast-forward merge
 	* accept or modify the merge default message created by git
-3. git branch -d featureX
+$ git branch -d featureX
 ```
 
 
@@ -333,23 +333,22 @@ the basic steps to performing a merge commit(if the merge is fast forwardable):
 ![resolving-merge-conflict](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/resolving-merge-conflict.jpg)
 
 ```
-basic steps to resolve a merge conflict:
-1. git checkout master
-2. git merge featureX
+# basic steps to resolve a merge conflict:
+$ git checkout master
+$ git merge featureX
 	(both branches modified the same hunk in file fileA.txt in different ways)
-	At this point, git will modifed fileA.txt which will show you exactly where 	the conflicts are and placed the file in your working tree.
+	At this point, git will modifed fileA.txt which will show you exactly where the 		conflicts are and placed the file in your working tree.
 ---
 at this point, if you don't want to continue to merge, you can use the command:
-git merge --abort
-to abort the merge
+$ git merge --abort # to abort the merge
 ---
-3. open fileA.txt and resolved the merge conflict which requires human judgement
-4. git add fileA.txt
-5. git commit
-6. git branch -d featureX
+# open fileA.txt and resolved the merge conflict which requires human judgement
+$ git add fileA.txt
+$ git commit # this will open the default editor since you don't use '-m'
+$ git branch -d featureX
 ```
 
-* Conflicted hunks are surrounded by the marks "<<<<<<<"(ours) and ">>>>>>>"(theirs) and "=======" is between them
+* **Conflicted hunks are surrounded by the marks "<<<<<<<"(ours) and ">>>>>>>"(theirs) and "=======" is between them**
 
 
 
@@ -367,16 +366,16 @@ to abort the merge
 
 * A reference named `remote/origin/HEAD` is a symbolic reference meaning that it is a reference that points to another reference, and this **specifies the default remote tracking branch**
 
-* You can use `<remote>` name instead of the whole tracking branch name in git command
+* You can use `<remotename>` name instead of the whole tracking branch name in git command and in this case you will use the default remote tracking branch
 
 ```
-An example:
-git branch --all
+# An example:
+$ git branch --all
 * master # checked out
   remotes/origin/HEAD -> origin/master # the default remote tracking branch
   remotes/origin/master
-git  log origin/master --oneline # see the commits of our master tracking branch
-git log origin --oneline # the same as before because we have default tracking branch
+$ git log origin/master --oneline # see the commits of our master tracking branch
+$ git log origin --oneline # the same as before because we have default tracking branch
 ```
 
 * Change the default remote tracking branch with `git remote set-head <remotename> <branch>`
@@ -386,7 +385,7 @@ git log origin --oneline # the same as before because we have default tracking b
 * `git status` includes tracking branch status
 
 ```
-git status
+$ git status
 On branch master
 Your branch is up to date with 'origin/master'. # means that as of the last time that we issued a network command like fetch, we have the latest commit in our local repository
 ```
@@ -394,7 +393,68 @@ Your branch is up to date with 'origin/master'. # means that as of the last time
 * `git status` will inform you if the cached tracking branch information is out of synchronous with your local  branch
 
 ```
+$ git status
 On branch master
 Your branch is ahead of `origin/master` by 1 commit
 ```
+
+
+
+## Fetch, Pull and Push
+
+### Network command overview
+
+* **Clone** - Copies a remote repository
+* **Fetch** - Retrieves new objects and references from the remote repository
+* **Pull** - Fetches and merges commits locally
+* **Push** - Adds new objects and references to the remote repository
+
+### Fetch
+
+* Retrieves new objects and references from another repository
+
+* **Remote tracking branches are updated and will be synchronized with the remote branch**
+* **Does not impact the local branch labels**
+
+![before and after fetch](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/before and after fetch.jpg)
+
+```
+$ git log origin --oneline --graph
+* 92dd144 (HEAD -> master, origin/master, origin/HEAD) fix some missing messages
+$ git fetch
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/wangyuxiang0829/My-Perspective-on-Git
+   92dd144..90fcaa3  master     -> origin/master
+$ git log origin --oneline
+90fcaa3 (origin/master, origin/HEAD) Create README.md
+92dd144 (HEAD -> master) fix some missing messages
+```
+
+* `git status ` will inform you that your current branch is behind the tracking branch
+
+```
+$ git status
+On branch master
+Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+```
+
+### Pull
+
+* A network command that **combines `git fetch` and `git merge FETCH_HEAD`** (FETCH_HEAD is an alias for the tip of the tracking branch)
+
+```
+$ git pull
+Updating 92dd144..90fcaa3
+Fast-forward
+```
+
+* `--f` (default) fast-forward if possible, otherwise perform merge commit
+* `--no-ff` -always include a merge commit
+* `--ff-only` only accepts fast-forward merges
+* `--rebase [--preserve-merges]` 
 
