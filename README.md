@@ -1,6 +1,21 @@
 # My-Perspective-on-Git
+
+
+
+![Git](https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Git-logo.svg/1920px-Git-logo.svg.png)
+
+
+
 ## Brief
+
 * This repository talks some basic description of Git
+
+
+
+---
+
+
+
 ## Contains
 ### pngs
 * A directory which contains all the images in this tutorial
