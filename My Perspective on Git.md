@@ -145,6 +145,14 @@ vim
 * **The commits and the relationship between them is what forms the project's history**
 * **A branch occurs if a commit has more than one child**
 
+```mermaid
+graph RL
+B(B) --> A(A)
+C(C) --> A(A)
+```
+
+
+
 ```
 
 				  branch1
