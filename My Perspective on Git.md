@@ -145,38 +145,20 @@ vim
 * **The commits and the relationship between them is what forms the project's history**
 * **A branch occurs if a commit has more than one child**
 
+![](D:\branch.png)
+
 ```mermaid
 graph RL
 B(B) --> A(A)
 C(C) --> A(A)
 ```
 
-
-
-```
-
-				  branch1
-					 |
-				A<---B
-				 \
-				  C
-				  |
-               branch2
-
-```
-
 * **A merge occurs when a commit has more than one parent**
 
-```
-
-			  branch1
-			    |
-			    A
-				 \
-			 B<---C
-			 	  |
-			   branch2
-
+```mermaid
+graph RL
+C(C) --> A(A)
+C(C) --> B(B)
 ```
 
 * `git log [--graph]` will show you a diagram
@@ -282,6 +264,8 @@ C(C) --> A(A)
 
 #### Create and View tags
 
+##### Commands
+
 * `git tag` - View all tags in the repository
 * Tags can be used instead of branch labels or Git IDs in Git commands such as `git show v1.0`
 * To tag a commit with a lightweight tag:
@@ -291,6 +275,52 @@ C(C) --> A(A)
 * To tag a commit with an annotated tag:
   * `git tag -a [-m <msg> | -F <file>] <tagname> [<commit>]`
   * `commit` default to HEAD
+
+##### Examples
+
+```shell
+$ git init
+Initialized empty Git repository in /.../.../.git/
+$ git log
+fatal: your current branch 'master' does not have any commits yet
+$ touch file1
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        file1
+
+nothing added to commit but untracked files present (use "git add" to track)
+$ git add .
+$ git commit -m "file1"
+[master (root-commit) e37cbd7] file1
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+create mode 100644 file1
+$ git log --oneline
+e37cbd7 (HEAD -> master) file1
+$ git tag v1.0
+$ git log --oneline
+e37cbd7 (HEAD -> master, tag: v1.0) file1
+$ touch file2
+$ git add .
+$ git commit -m "file2"
+$ git log --oneline
+18e1299 (HEAD -> master) file2
+e37cbd7 (tag: v1.0) file1
+$ git tag -a -m "this is an annotated tag" v2.0
+$ git log --oneline
+18e1299 (HEAD -> master, tag: v2.0) file2
+e37cbd7 (tag: v1.0) file1
+$ git tag
+v1.0
+v2.0
+```
+
+
 
 #### Notice
 
@@ -308,40 +338,80 @@ C(C) --> A(A)
 
 ### Branch Overview
 
-* A **branch** is a set of commits starting with the most recent commit in the branch and tracing back to the project's first commit
-* Fast and easy to create
-* Enable experimentation
-* Enable team development
-* Support multiple project versions
-* **Short-lived** (commonly called topic or feature branches) usually contain one small change to the project
+> A branch is a set of commits starting with the most recent commit in the branch and tracing back to the project's first commit
+
+
+
+#### Features
+
+1. Fast and easy to create
+2. Enable experimentation
+3. Enable team development
+4. Support multiple project versions
+
+
+
+#### Type
+
+1. **Short-lived** (commonly called topic or feature branches) usually contain one small change to the project
+
+
 
 ![short-branch](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/short-branch.jpg)
 
-* **Long-lived** such as master, develop, release
+
+
+2. **Long-lived** such as master, develop, release
+
+
+
+#### Look Over
 
 * Use `git branch` to see a list of branches in a repository
 
+
+
 ### Creating a branch
+
+#### Commands
 
 * Use `git branch <name>` to create a branch
 
+
+
+#### Note
+
 * Creating a branch simply creates a new branch label reference but you remain still on the original branch
+
+
 
 ### Checkout
 
-* Update the HEAD reference
-* Update the working tree with the commit's files
+#### What Checkout Will Do
 
-* Use `git checkout <branch_or_commit>` to checkout a branch or commit
+* Update the **HEAD** reference
+* Update the **working tree** with the commit's files
+
+
+
+#### How To Checkout
+
+* Use `git checkout <branch_or_commit>` to checkout a **branch** or **commit**
 * Use `git checkout -b <branchname>` to combine creating and checking out a branch into a single command
+
+
 
 ### Detached HEAD
 
-* Checking out a commit rather than a branch leads to a detached HEAD state
+* Checking out a **commit** rather than a **branch label** leads to a detached HEAD state
+
+
 
 ![](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/detached-HEAD.jpg)
 
-### Deleting a branch label
+
+
+### Deleting a Branch Label
 
 * Use `git branch -d <branchname>` to delete a branch
 
