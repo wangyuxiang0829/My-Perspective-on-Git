@@ -2,7 +2,11 @@
 
 ### What is Git?
 
+
+
 > Git is a distributed version control system which means each user has a local copy of the remote repository and can easily be synchronized
+
+
 
 ### What is a Git Repository?
 
@@ -101,35 +105,85 @@ vim
 **If you want to begin working with the remote repository, you have two main options:**
 
 * If have a local repository, you want to **push** to a remote repository, than you will **add** the remote repository to your local repository
+
+
+
 * If not have a local repository, you will **clone** the remote repository which will create a local repository that is associated with the remote repository
+
+
 
 ### Clone a Remote Repository
 
-* A clone is a local copy of a remote repository
 
-* A reference to the remote repository is included in the local repository, so you can synchronize the repository
-* **origin** is the default alias for the remote repository URL
+
+>A clone is a local copy of a remote repository
+>
+>A reference to the remote repository is included in the local repository, so you can synchronize the repository
+>
+>**origin** is the default alias for the remote repository URL
+
+
+
+
+
+#### How to Clone
+
 * `git clone <url/to/projectname.git> [localprojectname]` is used to create a local copy of a remote repository, the last argument (which defines the name of the directory name where the local repository is located) is optional, cloning will create a project directory in your local computer
+
+
+
+#### What Does Clone Do
+
 * After cloning, all the commits on the remote repository will also in your local repository
+
+
+
+#### Note
+
 * `git remote [--verbose]` displays information about remote repositories associated with the local repository
+
+
 
 ### Add a Remote Repository to a Local Repository
 
 * `git remote add <name> <url>` command will add information about the remote repository to the local repository, the two repositories can then be synchronized using aliases instead of URL
 
+
+
 ### Push Commits to a Remote Repository
 
-* All commits belong to a branch
 
+
+> All commits belong to a branch
+>
 > A branch can be thought of as an independent line of development of the project
 
+
+
+#### Default Branch
+
 * By default, there is a single branch and it is called **master**
+
+
+
+#### How to Push
+
 * `git push [-u] [<repository>] [<branch>]` writes commits for a branch from the local repository to a remote repository
   * `<repository>` can be a name(shortcut which is often origin) or URL
   * `-u` flag is set to set up a tracking relationship between the local and remote branch
   * `[<branch>]` is the branch in the remote repository that you want to push to
   * The arguments after `git push` are all optional, because git will assume default information or use previous arguments after you have executed the first push
+
+
+
+#### What Does Push Do
+
 * A successful push synchronizes the branches on the local and remote repositories so that they they contain exactly the same commits
+
+
+
+#### Note
+
 * Before you run `git push` command you can use `git remote --verbose` command to ensure that your local repository has an association with the remote repository
 
 
@@ -145,21 +199,19 @@ vim
 * **The commits and the relationship between them is what forms the project's history**
 * **A branch occurs if a commit has more than one child**
 
-![](D:\branch.png)
 
-```mermaid
-graph RL
-B(B) --> A(A)
-C(C) --> A(A)
-```
+
+![branch](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/branch.png)
+
+
 
 * **A merge occurs when a commit has more than one parent**
 
-```mermaid
-graph RL
-C(C) --> A(A)
-C(C) --> B(B)
-```
+
+
+![merge](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/merge.png>)
+
+
 
 * `git log [--graph]` will show you a diagram
 
@@ -204,6 +256,8 @@ C(C) --> B(B)
 * Use references instead of SHA-1 hashes, `git show` command can show the specified commit message, such as use `git show HEAD`
 * References are stored in the .git directory
 
+
+
 ### Branch Label and HEAD Reference
 
 #### Branch Label References
@@ -211,35 +265,33 @@ C(C) --> B(B)
 * **master** is the default name of the main branch in the repository
 * **A branch label** is a reference points to the most recent commit object in the branch
 
-```
 
-					A<---B<---C
-							  |
-							master
-							
-```
+
+![branch label reference](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/branch%20label%20reference.png>)
+
+
 
 * **Branch labels** are implemented as references
 * The difference between a branch and a branch label:
   * All commits belong to the branch
   * The branch label is only at the latest commit of the branch
 
+
+
 #### HEAD Reference
 
 * **HEAD** is a reference to the current commit object
 * **HEAD** usually points to the branch label reference of the current branch
 
-```
 
-					A<---B<---C
-							  |
-							master
-							  |
-							 HEAD
-							 
-```
+
+![HEAD reference](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/HEAD%20reference.png>)
+
+
 
 * Only one **HEAD** per repository
+
+
 
 ### Tag Reference
 
@@ -247,20 +299,19 @@ C(C) --> B(B)
 
 * A **tag** is a reference points to a specified commit object, it acts a user-friendly label for the commit
 
-```
 
-					 version1.0(tag)
-						 |
-					A<---B<---C
-							  |
-							master(branch label)
-```
+
+![tag reference](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/tag%20reference.png>)
+
+
 
 * There are two types of tags:
   * Lightweight(A simple reference points to a commit object much like branch label or HEAD)
   * Annotated(recommended)
     * A full Git object that references a commit
     * Includes tag author information, tag date, tag message, the commit ID
+
+
 
 #### Create and View tags
 
@@ -275,6 +326,8 @@ C(C) --> B(B)
 * To tag a commit with an annotated tag:
   * `git tag -a [-m <msg> | -F <file>] <tagname> [<commit>]`
   * `commit` default to HEAD
+
+
 
 ##### Examples
 
@@ -338,7 +391,9 @@ v2.0
 
 ### Branch Overview
 
-> A branch is a set of commits starting with the most recent commit in the branch and tracing back to the project's first commit
+
+
+> A branch is a set of commits starting with the most recent commit in the branch and tracing back to the project's first commit -- root commit
 
 
 
@@ -357,7 +412,7 @@ v2.0
 
 
 
-![short-branch](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/short-branch.jpg)
+![short lived branch](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/short%20lived%20branch.png>)
 
 
 
@@ -407,16 +462,124 @@ v2.0
 
 
 
-![](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/detached-HEAD.jpg)
+```
+You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this state without impacting any branches by performing another checkout.
+```
+
+
+
+![Detached HEAD](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/Detached%20HEAD.png>)
 
 
 
 ### Deleting a Branch Label
 
+#### How to Delete
+
 * Use `git branch -d <branchname>` to delete a branch
 
-* If you are trying to delete a not fully merged branch, Git will not let you to do that, and if you are sure you want to delete the branch, use the command `git branch -D <branchname>` but that will lead to the dangling commits, and Git will periodically **garbage collect** looking for and deleting older dangling commits, So be careful if you use the D option
+```shell
+$ git log --oneline
+3388bbb (HEAD -> master, featureX) C
+47efad3 B
+7811736 A
+$ git checkout featureX
+Switched to branch 'featureX'
+$ git log --oneline
+3388bbb (HEAD -> featureX, master) C
+47efad3 B
+7811736 A
+$ git branch -d featureX
+error: Cannot delete branch 'featureX' checked out at '...'
+$ git checkout master
+Switched to branch 'master'
+$ git branch -d featureX
+Deleted branch featureX (was 3388bbb).
+$ git log --oneline
+3388bbb (HEAD -> master) C
+47efad3 B
+7811736 A
+```
+
+
+
+> Deleting a branch really just means that you're deleting a branch label
+
+
+
+
+
+
+
+#### Deleting a not Merged Branch is Forbidden
+
+* **If you are trying to delete a not fully merged branch, Git will not let you to do that**
+
+
+
+
+
+
+
+```shell
+$ git log --oneline
+3db9474 (HEAD -> master) E
+3388bbb C
+47efad3 B
+7811736 A
+$ git checkout featureX
+Switched to branch 'featureX'
+$ git log --oneline
+4a4439d (HEAD -> featureX) D
+3388bbb C
+47efad3 B
+7811736 A
+$ git checkout master
+Switched to branch 'master'
+$ git branch -d featureX
+error: The branch 'featureX' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D featureX'.
+```
+
+
+
+* If you are sure you want to delete the branch, use the command `git branch -D <branchname>` but that will lead to the **dangling commits**
+
+
+
+
+
+
+
+```shell
+$ git branch -D featureX
+Deleted branch featureX (was 4a4439d).
+```
+
+
+
+> Git will periodically garbage collect looking for and deleting older dangling commits, So be careful if you use the D option
+
+
+
 * You can use `git reflog` to return a local list of recent HEAD commits
+
+```shell
+$ git reflog
+3db9474 (HEAD -> master) HEAD@{0}: checkout: moving from featureX to master
+4a4439d HEAD@{1}: commit: D
+3388bbb HEAD@{2}: checkout: moving from master to featureX
+...
+$ git checkout -b featureX 4a4439d # Creating a new branch label pointing to our previously dangling commit and now are back in bussiness
+Switched to a new branch 'featureX'
+$ git log --oneline
+4a4439d (HEAD -> featureX) D
+3388bbb C
+47efad3 B
+7811736 A
+```
+
+
 
 
 
