@@ -463,8 +463,17 @@ v2.0
 
 
 ```
-You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this state without impacting any branches by performing another checkout.
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
 ```
+
+
 
 
 
@@ -507,19 +516,13 @@ $ git log --oneline
 
 
 
-
+![deleting a branch](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/deleting%20a%20beanch.png)
 
 
 
 #### Deleting a not Merged Branch is Forbidden
 
 * **If you are trying to delete a not fully merged branch, Git will not let you to do that**
-
-
-
-
-
-
 
 ```shell
 $ git log --oneline
@@ -541,13 +544,11 @@ error: The branch 'featureX' is not fully merged.
 If you are sure you want to delete it, run 'git branch -D featureX'.
 ```
 
-
-
 * If you are sure you want to delete the branch, use the command `git branch -D <branchname>` but that will lead to the **dangling commits**
 
 
 
-
+![dangling commit](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/dangling%20commit.png)
 
 
 
@@ -578,8 +579,6 @@ $ git log --oneline
 47efad3 B
 7811736 A
 ```
-
-
 
 
 
@@ -723,61 +722,134 @@ Your branch is ahead of `origin/master` by 1 commit
 
 
 
+---
+
+
+
 ## Fetch, Pull and Push
 
-### Network command overview
+### Network Command Overview
 
 * **Clone** - Copies a remote repository
 * **Fetch** - Retrieves new objects and references from the remote repository
 * **Pull** - Fetches and merges commits locally
 * **Push** - Adds new objects and references to the remote repository
 
+
+
 ### Fetch
 
-* Retrieves new objects and references from another repository
+#### What Does Fetch Do
 
-* **Remote tracking branches are updated and will be synchronized with the remote branch**
-* **Does not impact the local branch labels**
+1. Retrieves new objects and references from another repository
+2. Tracking branches are updated
+3. Does not impact the local branch labels
 
-![before and after fetch](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/before and after fetch.jpg)
 
-```
-$ git log origin --oneline --graph
-* 92dd144 (HEAD -> master, origin/master, origin/HEAD) fix some missing messages
+
+#### Example
+
+```shell
+$ git log origin/master --oneline
+* 92dd144 (HEAD -> master, origin/master, origin/HEAD) ...
 $ git fetch
 remote: Enumerating objects: 4, done.
 remote: Counting objects: 100% (4/4), done.
 remote: Compressing objects: 100% (3/3), done.
 remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
 Unpacking objects: 100% (3/3), done.
-From https://github.com/wangyuxiang0829/My-Perspective-on-Git
+From ../url/to/projectname.git
    92dd144..90fcaa3  master     -> origin/master
-$ git log origin --oneline
-90fcaa3 (origin/master, origin/HEAD) Create README.md
-92dd144 (HEAD -> master) fix some missing messages
+$ git log origin/master --oneline
+90fcaa3 (origin/master, origin/HEAD) ...
+92dd144 (HEAD -> master) ...
 ```
 
-* `git status ` will inform you that your current branch is behind the tracking branch
 
-```
+
+#### Graph
+
+
+
+![fetch]()
+
+
+
+#### Note
+
+* `git status` will inform you that your current branch is behind the tracking branch
+
+```shell
 $ git status
 On branch master
 Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
   (use "git pull" to update your local branch)
 ```
 
+
+
 ### Pull
 
-* A network command that **combines `git fetch` and `git merge FETCH_HEAD`** (FETCH_HEAD is an alias for the tip of the tracking branch)
+#### What Does Pull Do
 
-```
+Combines `git fetch` and `git merge FETCH_HEAD` (FETCH_HEAD is an alias for the tip of the tracking branch)
+
+* If objects are fetched, the tracking branch is merged into the current local branch
+* This is similar to a topic branch merging into a base branch
+
+
+
+#### Example
+
+```shell
 $ git pull
 Updating 92dd144..90fcaa3
 Fast-forward
+...
 ```
 
-* `--f` (default) fast-forward if possible, otherwise perform merge commit
+
+
+#### `git pull` Command Options
+
+* `--ff` (default) fast-forward if possible, otherwise perform merge commit
 * `--no-ff` -always include a merge commit
-* `--ff-only` only accepts fast-forward merges
-* `--rebase [--preserve-merges]` 
+* `--ff-only` only accepts fast-forward merges and Git will cancel the merge instead of doing a merge commit
+
+
+
+#### Graph
+
+##### Pull With a Fast-Forward Merge
+
+
+
+![pull with a fast-forward merge]()
+
+
+
+##### Pull With A Merge Commit
+
+
+
+![pull with a merge commit]()
+
+ 
+
+### Push
+
+#### How to Push
+
+`git push [-u] [repository] [branch]`
+
+* `-u` Track this branch (`--set--upstream`)
+
+
+
+#### Example
+
+```shell
+$git push -u origin master
+
+```
 
