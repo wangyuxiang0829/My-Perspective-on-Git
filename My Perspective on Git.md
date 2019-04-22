@@ -674,13 +674,19 @@ $ git branch -d featureX
 
 
 
+---
+
+
+
 ## Tracking Branches
 
-### Tracking branch overview
+### Tracking Branch Overview
 
 * A tracking branch is a local branch that represents a remote branch
 * A tracking branch name is like `remotename/branchname`
 * **Tracking branches are only updated with network commands like clone, fetch, pull, and push**
+
+
 
 ### Viewing tracking branch names
 
@@ -701,6 +707,8 @@ $ git log origin --oneline # the same as before because we have default tracking
 ```
 
 * Change the default remote tracking branch with `git remote set-head <remotename> <branch>`
+
+
 
 ### Viewing tracking branch status
 
@@ -849,7 +857,21 @@ Fast-forward
 #### Example
 
 ```shell
-$git push -u origin master
-
+$ git push -u origin master
+Counting objects: 3, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 1.04 KiB | 354.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To ../url/to/projectname.git
+   8b42715..7c42389  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
 ```
+
+
+
+#### Note
+
+> Fetching or pulling before you push is suggested
 
