@@ -20,7 +20,7 @@
 
 ## Getting Started
 
-### Configuring User Information and the Default Editor
+### Configuring User Information
 
 * Use the `git config [--local | --global | --system] <key> [<value>]` command to specify or read configuration information if you don't use the `[value]` option
 
@@ -29,6 +29,10 @@ $ git config --global user.email "yuxiangwang0829@gmail.com" # set
 $ git config --global user.email # get
 yuxiangwang0829@gmail.com
 ```
+
+
+
+### Configuring the Default Editor
 
 * Use the `git config --global core.editor [<editorname>]` command to specify or read your preferred Git editor if you don't use the `[editorname]` option
 
@@ -597,7 +601,7 @@ $ git log --oneline
 
 
 
-![merging]()
+![merging](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/merging.png)
 
 
 
@@ -621,7 +625,7 @@ $ git log --oneline
 
 
 
-![fast-forward merge]()
+![fast-forward merge](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/fast-forward%20merge.png)
 
 
 
@@ -635,7 +639,7 @@ In this example, a Fast-forward merge is not possible:
 
 
 
-![not possible fast-forward merge]()
+![not possible fast-forward merge](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/not%20possible%20fast-forward%20merge.png)
 
 
 
@@ -663,7 +667,7 @@ $ git branch -d featureX
 
 
 
-![merge commit]()
+![merge commit](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/merge%20commit.png)
 
 
 
@@ -719,7 +723,7 @@ $ git branch -d featureX
 
 
 
-![merge conflict]()
+![merge conflict](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/merge%20conflict.png)
 
 
 
@@ -734,7 +738,7 @@ $ git branch -d featureX
 
 #### Graph
 
-![three commits]()
+![three commits](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/three%20commits.png)
 
 
 
