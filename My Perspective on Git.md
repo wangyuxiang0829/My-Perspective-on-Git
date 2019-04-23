@@ -571,7 +571,8 @@ $ git reflog
 4a4439d HEAD@{1}: commit: D
 3388bbb HEAD@{2}: checkout: moving from master to featureX
 ...
-$ git checkout -b featureX 4a4439d # Creating a new branch label pointing to our previously dangling commit and now are back in bussiness
+$ git checkout -b featureX 4a4439d 
+# Creating a new branch label pointing to our previously dangling commit and now are back in bussiness
 Switched to a new branch 'featureX'
 $ git log --oneline
 4a4439d (HEAD -> featureX) D
@@ -582,95 +583,199 @@ $ git log --oneline
 
 
 
-## Merging
+---
 
-### Merging overview
 
-* Merging combines the work of independent branches
 
-![merge-commit](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/merge-commit.jpg)
+## Merge
 
-* Four main types of merges:
-* 1. Fast-forward merge
+### Merge Overview
+
+#### What Does Merge Do
+
+> Merging combines the work of independent branches
+
+
+
+![merging]()
+
+
+
+#### Type of Merge
+
+* Two main types of merges:
+  1. Fast-forward merge
   2. Merge commit
-  3. Squash merge*
-  4. Rebase*
 
-* Fast-forward merges: Moves the base branch label the tip of the topic branch.
 
-![fast-forward-merge](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/fast-forward-merge.jpg)
 
-* A fast forward merge is possible only if no other commits have been made to the base branch since the topic branch was created. In this example, a fast-forward merge is not possible:
+### Fast-forward Merge
 
-![impossible-fast-forward-merge](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/impossible-fast-forward-merge.jpg)
+#### What Does Fast-forward Merge Do
 
-```
-the basic steps to performing a fast-forward-merge:
+> Just moving the base branch label to the tip of the topic branch
+
+
+
+#### Graph
+
+
+
+![fast-forward merge]()
+
+
+
+#### Note
+
+* A Fast-forward merge is possible only when no other commits have been made to the base branch since the topic branch was created
+
+
+
+In this example, a Fast-forward merge is not possible:
+
+
+
+![not possible fast-forward merge]()
+
+
+
+#### Example
+
+```shell
+# The basic steps to performing a fast-forward-merge:
 $ git checkout master
-$ git merge featureX
-	* attempting a fast forward merge is the default
+$ git merge featureX # Attemping a fast forward merge is the default
 $ git branch -d featureX
 ```
 
-### Merge commits
+
+
+### Merge Commit
+
+#### What Does Merge Commit Do
 
 1.  Combines the commits at the tips of the merged branches
 2. Places the result in the merge commit
 
-```
-the basic steps to performing a merge commit(if the merge is not fast forwardable):
+
+
+#### Graph
+
+
+
+![merge commit]()
+
+
+
+#### Example
+
+##### Not Fast Forwardable
+
+```shell
+# The basic steps to performing a merge commit(if the merge is not fast forwardable):
 $ git checkout master
 $ git merge featureX
-	* automatically attempt to create a merge commit if the merge is not fast forwardable
-	* accept or modify the default merge message created by git
+#1. automatically attempt to create a merge commit if the merge is not fast forwardable
+#2. accept or modify the default merge message created by git
 $ git branch -d featureX
 ```
 
-```
-# the basic steps to performing a merge commit(if the merge is fast forwardable):
+
+
+##### Is Fast Forwardable
+
+```shell
+# The basic steps to performing a merge commit(if the merge is fast forwardable):
 $ git checkout master
 $ git merge --no-ff featureX
-	* [--no-ff] means a no fast-forward merge
-	* accept or modify the merge default message created by git
+#1. [--no-ff] means that a merge commit will always be created even the merge is fast forwardable
+#2. accept or modify the merge default message created by git
 $ git branch -d featureX
 ```
+
+
+
+---
 
 
 
 ## Resolving Merge Conflicts
 
-### Merge conflict overview
+### Merge Conflict Overview
 
-* There are cases where **multiple branches make different changes to the same part of a file**, and in this case, a merge conflict occurs and a person needs to make a decision on how to resolve it
-* Git can **automatically merge changes to different parts of the same file**
+#### Hunk
 
-* In Git, a part of file is called a **hunk**, so we can say **the merge conflicts occur when two branches modify the same hunk of the same file**
+> In Git, a part of file is called a **hunk**
 
-### Resolving a merge conflict
+
+
+#### When Does Merge Conflict occur
+
+> The merge conflicts occur when two branches modify the same hunk of the same file
+
+
+
+#### Graph
+
+
+
+![merge conflict]()
+
+
+
+#### Note
+
+> 1. A person needs to make a decision on how to resolve the merge conflict
+> 2. Avoid making a lot of changes over a long period of time without merging
+
+
+
+### Resolving a Merge Conflict
+
+#### Graph
+
+![three commits]()
+
+
 
 1. The tip of the current branch (B) - "ours" or "mine"
 2. The tip of the branch to merged (C) - "theirs"
 3. A common ancestor (A) - "merge base"
 
-![resolving-merge-conflict](https://github.com/wangyuxiang0829/My-Perspective-on-Git/blob/master/pngs/resolving-merge-conflict.jpg)
 
-```
-# basic steps to resolve a merge conflict:
+
+#### Example
+
+```shell
+# Basic steps to resolve a merge conflict:
 $ git checkout master
 $ git merge featureX
-	(both branches modified the same hunk in file fileA.txt in different ways)
-	At this point, git will modifed fileA.txt which will show you exactly where the 		conflicts are and placed the file in your working tree.
+#1. Assume both branches modified the same hunk in a file in different ways
+#2. At this point, git will modifed the file which will show you exactly where the conflicts are and placed the file in your working tree
 ---
-at this point, if you don't want to continue to merge, you can use the command:
-$ git merge --abort # to abort the merge
+#3. At this point, if you don't want to continue to merge, you can use the fllowing command to abort the merge:
+$ git merge --abort
 ---
-# open fileA.txt and resolved the merge conflict which requires human judgement
+#3. Modifiy the file and resolve the merge conflict which requires human judgement and then make a commit
 $ git add fileA.txt
-$ git commit # this will open the default editor since you don't use '-m'
+$ git commit # This will open the default editor since you don't use '-m'
 $ git branch -d featureX
 ```
 
-* **Conflicted hunks are surrounded by the marks "<<<<<<<"(ours) and ">>>>>>>"(theirs) and "=======" is between them**
+
+
+#### Note
+
+The conflicted hunks will be displaying just like this:
+
+```shell
+feature 1 # unconflicted
+<<<<<<< HEAD
+feature 3 # ours
+=======
+feature 2 # theirs
+>>>>>>> featureX
+```
 
 
 
@@ -682,47 +787,96 @@ $ git branch -d featureX
 
 ### Tracking Branch Overview
 
-* A tracking branch is a local branch that represents a remote branch
-* A tracking branch name is like `remotename/branchname`
-* **Tracking branches are only updated with network commands like clone, fetch, pull, and push**
+#### What Is a Tracking Branch
+
+1. A tracking branch is a local branch that represents a remote branch
+2. A tracking branch name is like `remotename/branchname`
 
 
 
-### Viewing tracking branch names
+#### Note
 
-* Use `git branch --all` to display all local and tracking branch names
+> Tracking branches are only updated with network commands like clone, fetch, pull, and push
 
-* A reference named `remote/origin/HEAD` is a symbolic reference meaning that it is a reference that points to another reference, and this **specifies the default remote tracking branch**
 
-* You can use `<remotename>` name instead of the whole tracking branch name in git command and in this case you will use the default remote tracking branch
 
-```
-# An example:
+### Viewing Tracking Branch
+
+#### How to Watch the Tracking Branch
+
+##### Command
+
+ `git branch --all` to display all local and tracking branch names
+
+
+
+##### Example
+
+```shell
 $ git branch --all
-* master # checked out
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/master
+```
+
+
+
+#### Special Tracking Branch
+
+##### HEAD Reference
+
+> A reference named `remotes/origin/HEAD` is a symbolic reference meaning that it is a reference that points to another reference, and this **specifies the default remote tracking branch**
+
+
+
+##### Example
+
+```shell
+$ git branch --all
+* master
   remotes/origin/HEAD -> origin/master # the default remote tracking branch
   remotes/origin/master
-$ git log origin/master --oneline # see the commits of our master tracking branch
-$ git log origin --oneline # the same as before because we have default tracking branch
 ```
+
+
+
+##### Note
+
+* You can use only `<remotename>` name instead of the whole tracking branch name which is known as `remotename/branchname` in git command and in this case you will use the default remote tracking branch which is specified by `remotes/origin/HEAD`
+
+```shell
+$ git log origin/master --oneline # see the commits of tracking branch origin/master
+$ git log origin --oneline # the same as before by using the default tracking branch
+```
+
+
 
 * Change the default remote tracking branch with `git remote set-head <remotename> <branch>`
 
+```shell
+$ git remote set-head origin master
+$ git branch --all
+* master
+  remotes/origin/HEAD -> origin/master
+  remotes/origin/master
+```
 
 
-### Viewing tracking branch status
+
+### Viewing Tracking Branch Status
 
 * `git status` includes tracking branch status
 
-```
+```shell
 $ git status
 On branch master
-Your branch is up to date with 'origin/master'. # means that as of the last time that we issued a network command like fetch, we have the latest commit in our local repository
+Your branch is up to date with 'origin/master'.
+# Means that since of the last time that we use a network command like fetch, we have the latest commit in our local repository
 ```
 
 * `git status` will inform you if the cached tracking branch information is out of synchronous with your local  branch
 
-```
+```shell
 $ git status
 On branch master
 Your branch is ahead of `origin/master` by 1 commit
@@ -779,7 +933,7 @@ $ git log origin/master --oneline
 
 
 
-![fetch]()
+![fetch](<https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/fetch.png>)
 
 
 
@@ -832,7 +986,7 @@ Fast-forward
 
 
 
-![pull with a fast-forward merge]()
+![pull with a fast-forward merge](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/pull%20with%20a%20fast-forward%20merge.png)
 
 
 
@@ -840,7 +994,7 @@ Fast-forward
 
 
 
-![pull with a merge commit]()
+![pull with a merge commit](https://raw.githubusercontent.com/wangyuxiang0829/My-Perspective-on-Git/master/images/pull%20with%20a%20merge%20commit.png)
 
  
 
