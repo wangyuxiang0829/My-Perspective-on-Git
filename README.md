@@ -17,7 +17,7 @@
 
 
 ## Contains
-### pngs
+### images
 * A directory which contains all the images in this tutorial
 ### LICENSE
 * MIT License
@@ -42,4 +42,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ### My Perspective on Git.md
-* The Markdown format file which contains the full tutorials.
+* The Markdown format file which contains the full tutorials
+
+
+
+### My Perspective on Git.pdf
+
+* The PDF format file which contains the full tutorials
+
+
+
+### My Perspective on Git.html
+
+* The HTML format file which contains the full tutorials
